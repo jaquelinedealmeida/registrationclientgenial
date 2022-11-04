@@ -5,43 +5,40 @@ class Client
         @diagnostic = diagnostic
     end
 
-    def registration(dados)
-        @dados = dados
+    def registration(dates)
+        @dates= dates
     end 
 
 end
 
-#class Registration < Client
 
-    #def initialize(name, age, diagnostic)
-        #super(name, age, diagnostic)    
-    #end 
-#end 
-
-class Printer < Client
+class Register < Client
     def initialize(name, age, diagnostic)
         super(name, age, diagnostic)
-            if(age < 5  && diagnostic === true ) 
-                puts "Cadastro de #{@name} realizado com sucesso."
-            elsif (age < 5 && diagnostic === false)
-                puts " O cadastro de #{@name} nao pode ser realizado porque a crianca nao tem diagnostico."
-            elsif (age > 5)
-                puts "O cadastro  de #{@name} nao pode ser realizado porque a crianca tem mais de 5 anos"
-            elsif(age > 5 || diagnostic === false) 
-                puts "O cadastro de #{@name} nao pode ser realizado porque a crianca nao se encaixa nos criterios de atendimento da Genial"
+            if(age <= 5  && diagnostic === true ) 
+                puts "🗓 Cadastro de #{@name} realizado com sucesso."
+            elsif (age <= 5 && diagnostic === false)
+                puts "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca nao tem diagnostico."
+            elsif (age > 5 && diagnostic === true)
+                puts  "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca tem mais de 5 anos."
+            elsif (age > 5 &&  diagnostic === false) 
+                puts "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca nao se encaixa nos criterios de atendimento da Genial." 
+            else ( name == " " || age == NaN || diagnostic == " " )
+                puts " ⇢ Dados nao foram preenchidos corretamente"
             end 
 
-        end 
+    end 
 end 
 
 class Main
     def execute
-        #@client = Client.new("Maria Fernanda", 9, true)
-        @printer = Printer.new("Maria Fernanda", 5, true)
-        @printer = Printer.new("Gabriel Rodrigues", 6, false)
+        
+        @register = Register.new("Maria Fernanda", 4,true)
+        @register = Register.new("Gabriel Rodrigues", 5, false)
+        @register = Register.new("Joao Sampaio", 6, true)
+        @register = Register.new("Samara Franca ", 10, false)
+        @register = Register.new(" ", 100, " ")
        
-     
-
         client_registration
 
     end 
@@ -49,7 +46,7 @@ class Main
     private
 
     def client_registration
-        @printer.registration(@client)
+        @register.registration(@dates)
     end 
 
 end 
