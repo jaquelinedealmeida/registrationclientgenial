@@ -1,0 +1,3 @@
+- metodo no maximo 6 linhas
+- classes no maximo 100 linhas
+- nao pode ter regra de negocio do initialize

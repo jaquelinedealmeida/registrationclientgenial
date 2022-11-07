@@ -1,55 +1,31 @@
 class Client 
-    def initialize(name, age, diagnostic)
+    attr_accessor :name, :age, :diagnosis
+    
+    def initialize(name, age, diagnosis)
         @name = name
         @age = age
-        @diagnostic = diagnostic
+        @diagnosis = ['Level 1', 'Level 2','Level 3', 'no diagnosis']
     end
 
-    def registration(dates)
-        @dates= dates
+    def registerClient
+        if @age <= 5  && @diagnosis.length
+            puts "🗓 Cadastro de #{@name} realizado com sucesso. Boas vindas a Genial "
+        elsif @age > 5 && @diagnosis.length
+            puts "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca nao tem diagnostico."
+        else @age <= 5 && @diagnosis.length
+            puts "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca tem mais de 5 anos."
+        end 
     end 
-
 end
 
 
-class Register < Client
-    def initialize(name, age, diagnostic)
-        super(name, age, diagnostic)
-            if(age <= 5  && diagnostic === true ) 
-                puts "🗓 Cadastro de #{@name} realizado com sucesso."
-            elsif (age <= 5 && diagnostic === false)
-                puts "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca nao tem diagnostico."
-            elsif (age > 5 && diagnostic === true)
-                puts  "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca tem mais de 5 anos."
-            elsif (age > 5 &&  diagnostic === false) 
-                puts "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca nao se encaixa nos criterios de atendimento da Genial." 
-            else ( name == " " || age == NaN || diagnostic == " " )
-                puts " ⇢ Dados nao foram preenchidos corretamente"
-            end 
+    @register1 = Client.new("Maria Fernanda", 4, (0))
+    @register2 = Client.new("Joao Sampaio", 6, (1))
 
-    end 
-end 
-
-class Main
-    def execute
-        
-        @register = Register.new("Maria Fernanda", 4,true)
-        @register = Register.new("Gabriel Rodrigues", 5, false)
-        @register = Register.new("Joao Sampaio", 6, true)
-        @register = Register.new("Samara Franca ", 10, false)
-        @register = Register.new(" ", 100, " ")
-       
-        client_registration
-
-    end 
-
-    private
-
-    def client_registration
-        @register.registration(@dates)
-    end 
-
-end 
+    
 
 
-Main.new.execute
+puts @register1.registerClient
+puts @register2.registerClient
+
+#puts @register2.registerClient("Gabriel Rodrigues", 5, false)

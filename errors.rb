@@ -1,5 +1,5 @@
 
-class Errors < Register 
+class Errors
     
     class WithoutDiagnostic 
         def mensageDiagnostic
