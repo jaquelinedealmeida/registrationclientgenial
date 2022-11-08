@@ -1,16 +1,15 @@
-module Children_Rules
+module ChildrenRules
     DIAGNOSIS = {
         'TEA_1' => 'Level 1',
         "TEA_2" => 'Level 2',
         "TEA_3" => 'Level 3',
-        #"No_diagnosis" => 'No diagnosis'
     }
+
     MAX_AGE = 5
 end
 
 class Children 
-    include Children_Rules
-    #private attr_accessor :name, :age, :diagnosis
+    include ChildrenRules
     
     def initialize(name, age, diagnosis)
         @name = name
@@ -19,66 +18,69 @@ class Children
     end
 
     def register_children
-        if @age <= MAX_AGE && DIAGNOSIS.fetch(@diagnosis)
-            "🗓 Cadastro de #{@name} foi realizado com sucesso. Boas vindas a Genial "
+        if age <= MAX_AGE && DIAGNOSIS.fetch(diagnosis)
+            "🗓 Cadastro de #{name} foi realizado com sucesso. Boas vindas a Genial "
         end
         rescue Exception => e
-            puts "🚨 O cadastro de #{@name} nao pode ser realizado porque a crianca nao tem diagnostico."
+            puts "🚨 O cadastro de #{name} nao pode ser realizado porque a crianca nao tem diagnostico."
             puts e.message
     end 
+
+    private 
+    attr_accessor :name, :age, :diagnosis
 end
 
-module Rules_Caregivers
+module RulesCaregivers
 
-HEALTH_PLAN = ['GNDI', 'Alice', 'Particular']
-INCOME_CAREGIVERS = 10.000
-EMPLOYED_CAREGIVERS = true
+    HEALTH_PLAN = ['GNDI', 'Alice', 'Particular']
+    INCOME_CAREGIVERS = 10.000
+    EMPLOYED_CAREGIVERS = true
+
 end 
 
 class Caregivers
-include Rules_Caregivers
+include RulesCaregivers
     
     def initialize(children,health_plan, income, employed_caregivers)
-        @children = Children
+        @children = children
         @health_plan = health_plan
         @income = income 
         @employed_caregivers = employed_caregivers
     end 
 
-    def register_Caregivers
+    def register_caregivers
         if HEALTH_PLAN.include?(@health_plan)
-            return "Seu cadastro foi aprovado."
+            "Seu cadastro foi aprovado."
         else 
-            return "Seu plano nao e um dos nossos parceiros"
+           "Seu plano nao e um dos nossos parceiros"
         end 
     end 
 
     def particular_plan
         if @income >= INCOME_CAREGIVERS && @employed_caregivers === EMPLOYED_CAREGIVERS
-            return "Cadastro realizado com sucesso"
+            "Cadastro realizado com sucesso"
         else 
-            return "Seu perfil nao esta dentro dos criterios da Genial."
+            "Seu perfil nao esta dentro dos criterios da Genial."
         end
     end 
 end 
 
-@register1 = Children.new("Flavia Cristina",3,'TEA_1')
-@register2 = Children.new("Samara Santos", 5,'No_diagnosis')
+child1 = Children.new("Flavia Cristina",3,'TEA_1')
+child2 = Children.new("Samara Santos", 5,'No_diagnosis')
 
-puts @register1.register_children
-puts @register2.register_children
+puts child1.register_children
+puts child2.register_children
 
-@register1 = Caregivers.new(@children, "Alice", 10.000, true)
-@register2 = Caregivers.new(@children, "Bradesco", 10.000, true)
+caregivers1 = Caregivers.new(child1, "Alice", 10.000, true)
+caregivers2 = Caregivers.new(child2, "Bradesco", 10.000, true)
 
-puts @register1.register_Caregivers
-puts @register2.register_Caregivers
+puts caregivers1.register_caregivers
+puts caregivers2.register_caregivers
 
-@register3 = Caregivers.new(@children, "Particular", 10.000, true)
-@register4 = Caregivers.new(@children, "Particular", 10.000, false)
+caregivers_particular_plan = Caregivers.new(child1, "Particular", 10.000, true)
 
-puts @register3.particular_plan
-puts @register4.particular_plan
+puts caregivers_particular_plan.particular_plan
+
 
 
 
