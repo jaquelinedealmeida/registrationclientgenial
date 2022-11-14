@@ -17,3 +17,4 @@
 
 1 - Nenhum método pode ter mais de 6 linhas (exceção do initialize, porém não pode ter regras dentro dele);
 2 - Nenhuma classe pode ter mais de 100 linhas.
+

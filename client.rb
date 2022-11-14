@@ -1,15 +1,15 @@
 module ChildrenRules
-    DIAGNOSIS = {
-        'TEA_1' => 'Level 1',
-        "TEA_2" => 'Level 2',
-        "TEA_3" => 'Level 3',
-    }
+  DIAGNOSIS = {
+    'TEA_1' => 'Level 1',
+    "TEA_2" => 'Level 2',
+    "TEA_3" => 'Level 3',
+  }
 
-    MAX_AGE = 5
+  MAX_AGE = 5
 end
 
 class Children 
-    include ChildrenRules
+  include ChildrenRules
     
     def initialize(name, age, diagnosis)
         @name = name
@@ -17,69 +17,116 @@ class Children
         @diagnosis = diagnosis
     end
 
-    def register_children
-        if age <= MAX_AGE && DIAGNOSIS.fetch(diagnosis)
-            "🗓 Cadastro de #{name} foi realizado com sucesso. Boas vindas a Genial "
-        end
-        rescue Exception => e
-            puts "🚨 O cadastro de #{name} nao pode ser realizado porque a crianca nao tem diagnostico."
-            puts e.message
+    def register_child
+      if age <= MAX_AGE && DIAGNOSIS.fetch(diagnosis)
+       true
+      end
+      rescue KeyError => e
+        puts "A crianca nao tem diagnostico"
+        puts e.message
     end 
 
-    private 
+    #private 
     attr_accessor :name, :age, :diagnosis
+    #os private fica na parte final do codigo
+    #com o uso dos metodos acessores, as variaveis nao precisam ser as de instancia, pois ele possibilita os acessores possibilita o uso em toda a class
 end
 
+
+#criar class somente de cadastro do caregiver com indicacao da crianca
+class Caregiver
+  
+  def initialize(name, child, income )
+    @name = name
+    @child = child
+    @income = income
+    
+  end 
+
+    #private
+    attr_accessor :name, :child, :income
+end 
+#criar classe de cuidaddores
 module RulesCaregivers
 
-    HEALTH_PLAN = ['GNDI', 'Alice', 'Particular']
-    INCOME_CAREGIVERS = 10.000
-    EMPLOYED_CAREGIVERS = true
+  HEALTH_PLAN = ['GNDI', 'Alice','Particular']
+  INCOME_CAREGIVERS = 10_000
+  EMPLOYED = true
 
 end 
 
 class Caregivers
 include RulesCaregivers
-    
-    def initialize(children,health_plan, income, employed_caregivers)
-        @children = children
-        @health_plan = health_plan
-        @income = income 
-        @employed_caregivers = employed_caregivers
-    end 
 
-    def register_caregivers
-        if HEALTH_PLAN.include?(@health_plan)
-            "Seu cadastro foi aprovado."
-        else 
-           "Seu plano nao e um dos nossos parceiros"
-        end 
-    end 
+attr_accessor :caregiver1, :caregiver2, :health_plan, :employed_caregivers
+  
+  def initialize(caregiver1, caregiver2, health_plan, employed_caregivers)
+    @caregiver1 = caregiver1
+    @caregiver2 = caregiver2
+    @health_plan = health_plan
+    @employed_caregivers = employed_caregivers
+  end 
 
-    def particular_plan
-        if @income >= INCOME_CAREGIVERS && @employed_caregivers === EMPLOYED_CAREGIVERS
-            "Cadastro realizado com sucesso"
-        else 
-            "Seu perfil nao esta dentro dos criterios da Genial."
-        end
+  def health_plan
+    if HEALTH_PLAN.include?(@health_plan)
+      true
+    else 
+      "Plano nao conveniado"
     end 
+  end 
+
+  def amount
+   @income_caregivers = caregiver1.income + caregiver2.income
+  end 
+
+    #quando nao tem a initialize, da erro no numero de argumentos
+  
+  def validate_particular
+    if @income_caregivers >= INCOME_CAREGIVERS && employed_caregivers === EMPLOYED
+      return true
+    else 
+      "Cadastro fora do perfil."
+    end
+
+  end 
+
 end 
 
-child1 = Children.new("Flavia Cristina",3,'TEA_1')
-child2 = Children.new("Samara Santos", 5,'No_diagnosis')
 
-puts child1.register_children
-puts child2.register_children
+#child
 
-caregivers1 = Caregivers.new(child1, "Alice", 10.000, true)
-caregivers2 = Caregivers.new(child2, "Bradesco", 10.000, true)
+child = Children.new("Flavia Cristina",3,'TEA_1')
+puts child.register_child
 
-puts caregivers1.register_caregivers
-puts caregivers2.register_caregivers
 
-caregivers_particular_plan = Caregivers.new(child1, "Particular", 10.000, true)
+#caregiver
+caregiver1 = Caregiver.new("Fernanda", child, 6_000 )
+caregiver2 = Caregiver.new("Paulo", child, 6_000)
 
-puts caregivers_particular_plan.particular_plan
+puts caregiver2
+
+
+caregivers = Caregivers.new(caregiver1, caregiver2, 'Particular', true)
+
+puts caregivers.health_plan
+puts caregivers.amount
+puts caregivers.validate_particular
+
+#
+
+
+
+#puts caregiver1.caregivers_healthPlan
+#puts caregiver2.caregivers_healthPlan
+
+#caregivers
+
+#caregiver3 =  Caregiver.new("Fernanda",child1, "Alice")
+#caregiver4 = 
+#caregivers_particular= Caregivers.new("Sandra", "Maria", 10.000, true)
+#puts caregivers_particular.particular_plan
+
+
 
 
 
