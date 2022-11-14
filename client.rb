@@ -10,6 +10,8 @@ end
 
 class Children 
   include ChildrenRules
+
+  attr_accessor :name, :age, :diagnosis
     
     def initialize(name, age, diagnosis)
         @name = name
@@ -25,26 +27,18 @@ class Children
         puts "A crianca nao tem diagnostico"
         puts e.message
     end 
-
-    #private 
-    attr_accessor :name, :age, :diagnosis
-    #os private fica na parte final do codigo
-    #com o uso dos metodos acessores, as variaveis nao precisam ser as de instancia, pois ele possibilita os acessores possibilita o uso em toda a class
 end
 
-
-#criar class somente de cadastro do caregiver com indicacao da crianca
 class Caregiver
+
+  attr_accessor :name, :child, :income
   
   def initialize(name, child, income )
     @name = name
     @child = child
     @income = income
-    
   end 
-
-    #private
-    attr_accessor :name, :child, :income
+  
 end 
 #criar classe de cuidaddores
 module RulesCaregivers
@@ -79,15 +73,12 @@ attr_accessor :caregiver1, :caregiver2, :health_plan, :employed_caregivers
    @income_caregivers = caregiver1.income + caregiver2.income
   end 
 
-    #quando nao tem a initialize, da erro no numero de argumentos
-  
   def validate_particular
     if @income_caregivers >= INCOME_CAREGIVERS && employed_caregivers === EMPLOYED
       return true
     else 
       "Cadastro fora do perfil."
     end
-
   end 
 
 end 
@@ -103,8 +94,7 @@ puts child.register_child
 caregiver1 = Caregiver.new("Fernanda", child, 6_000 )
 caregiver2 = Caregiver.new("Paulo", child, 6_000)
 
-puts caregiver2
-
+puts caregiver2.income
 
 caregivers = Caregivers.new(caregiver1, caregiver2, 'Particular', true)
 
