@@ -1,3 +1,4 @@
+#interface
 module ChildrenRules
   DIAGNOSIS = {
     'TEA_1' => 'Level 1',
@@ -18,15 +19,16 @@ class Children
         @age = age
         @diagnosis = diagnosis
     end
-
+    
     def register_child
       if age <= MAX_AGE && DIAGNOSIS.fetch(diagnosis)
        true
       end
-      rescue KeyError => e
+    rescue KeyError => e
         puts "A crianca nao tem diagnostico"
         puts e.message
     end 
+
 end
 
 class Caregiver
@@ -40,7 +42,7 @@ class Caregiver
   end 
   
 end 
-#criar classe de cuidaddores
+
 module RulesCaregivers
 
   HEALTH_PLAN = ['GNDI', 'Alice','Particular']
@@ -60,7 +62,7 @@ attr_accessor :caregiver1, :caregiver2, :health_plan, :employed_caregivers
     @health_plan = health_plan
     @employed_caregivers = employed_caregivers
   end 
-
+  
   def health_plan
     if HEALTH_PLAN.include?(@health_plan)
       true
@@ -68,13 +70,18 @@ attr_accessor :caregiver1, :caregiver2, :health_plan, :employed_caregivers
       "Plano nao conveniado"
     end 
   end 
-
+ #strategy class
   def amount
-   @income_caregivers = caregiver1.income + caregiver2.income
+    caregiver1.income + caregiver2.income >= INCOME_CAREGIVERS
   end 
 
-  def validate_particular
-    if @income_caregivers >= INCOME_CAREGIVERS && employed_caregivers === EMPLOYED
+  def employed_caregivers?
+    EMPLOYED
+  end 
+
+  def validate_particular?
+    #if @income_caregivers >= INCOME_CAREGIVERS && employed_caregivers === EMPLOYED
+    if amount && employed_caregivers
       return true
     else 
       "Cadastro fora do perfil."
@@ -83,7 +90,6 @@ attr_accessor :caregiver1, :caregiver2, :health_plan, :employed_caregivers
 
 end 
 
-
 #child
 
 child = Children.new("Flavia Cristina",3,'TEA_1')
@@ -91,7 +97,7 @@ puts child.register_child
 
 
 #caregiver
-caregiver1 = Caregiver.new("Fernanda", child, 6_000 )
+caregiver1 = Caregiver.new("Fernanda", child, 1_000 )
 caregiver2 = Caregiver.new("Paulo", child, 6_000)
 
 puts caregiver2.income
@@ -100,32 +106,8 @@ caregivers = Caregivers.new(caregiver1, caregiver2, 'Particular', true)
 
 puts caregivers.health_plan
 puts caregivers.amount
-puts caregivers.validate_particular
-
-#
-
-
-
-#puts caregiver1.caregivers_healthPlan
-#puts caregiver2.caregivers_healthPlan
-
-#caregivers
-
-#caregiver3 =  Caregiver.new("Fernanda",child1, "Alice")
-#caregiver4 = 
-#caregivers_particular= Caregivers.new("Sandra", "Maria", 10.000, true)
-#puts caregivers_particular.particular_plan
-
-
-
-
-
-
-
-
-
-
-
+puts caregivers.employed_caregivers?
+puts caregivers.validate_particular?
 
 
 
