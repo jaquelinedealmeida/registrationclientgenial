@@ -91,10 +91,8 @@ attr_accessor :caregiver1, :caregiver2, :health_plan, :employed_caregivers
 end 
 
 #child
-
 child = Children.new("Flavia Cristina",3,'TEA_1')
 puts child.register_child
-
 
 #caregiver
 caregiver1 = Caregiver.new("Fernanda", child, 1_000 )
@@ -102,6 +100,7 @@ caregiver2 = Caregiver.new("Paulo", child, 6_000)
 
 puts caregiver2.income
 
+#cargivers
 caregivers = Caregivers.new(caregiver1, caregiver2, 'Particular', true)
 
 puts caregivers.health_plan

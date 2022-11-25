@@ -19,4 +19,6 @@
 2 - Nenhuma classe pode ter mais de 100 linhas.
 
 ### Terceira task
-Refatorar o codigo de acordo com o Design Pattern - chain of responsibility 
+Refatorar o codigo de acordo com o Design Pattern - chain of responsibility.
+
+Dado exemplos de codigo em chain e strategy durante a mentoria. 
